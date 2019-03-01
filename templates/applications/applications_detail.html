@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Заявка № {{ applications.id }}{% endblock title %}
+{% block content%}
+{% if applications.status == 'NW' %}
+	<style>#st {color:#008000;}</style>
+{% elif  applications.status == 'CS'%}
+	<style>#st {color:#0015FF;}</style>
+{% elif  applications.status == 'RL'%}
+	<style>#st {color:red;}</style>
+{% elif  applications.status == 'IW'%}
+	<style>#st {color:#FFF700;}</style>
+{% endif %}
+<div  class = 'container-fluid' >
+	<div class = 'row'>
+		<div class = 'float-left'>назад</div>
+		<div class = 'float-right'>Редактировать</div>
+	</div>
+ </div>
+
+ <div  class = 'container-fluid' style = 'height:70px; background-color: red;'>
+	
+		<div class = 'row'>
+			<div class = 'col-8'>
+				<p class="h4 text-light">Заявка № {{ applications.id }} от {{ applications.creation_date }} </p>
+			</div>
+			<div class = 'col-4'>
+				<p class="h4 text-light">статус {{ applications.get_status_display}}</p>
+			</div>
+		</div>
+	
+ </div>
+
+ <div class="card ">
+	<div class = 'card-body'>
+		<p class="h5"> {{ applications.company.inn }} / {{ applications.company.name }}</p>
+		<p>Создал : {{ applications.creator.get_full_name }}</p>
+		<p>Исполнитель: {{ applications.responsible.get_full_name}} <a href ="#}">Назначить</a></p>
+		<p>Инцидент : <a href='https://wic.kontur.ru/incidents/{{ applications.incident }}' target="_blank">{{ applications.incident }}</a>  <a href = 'https://wic.kontur.ru/incidents/add?inn={{applications.company.inn}}&header=Настройка ККТ (знание 7888: выездная/в офисе) '>создать</a></p>
+		<p>Счёт : <v id="copytext">{{applications.bill}}</v> <a href="#" data-clipboard-target="#copytext" class="pull-right copy-text">[Копировать]</a> <a href = "#">Добавить</a></p>
+   
+	
+   
+    
+ 
+
+{% if applications.date_of_service %}
+{{ applications.date_of_service}}
+{% else %} Услуга не оказана
+{%endif%}
+
+
+
+
+
+
+	</div>
+</div>
+
+	<div class="col-7" >
+	{% load bootstrap4 %}
+<p>Комментарии :</p>
+{% for comment in comment_tree %}
+<div class="alert alert-primary" role="alert">
+<p class="text-info">
+{{comment.author_id.get_full_name}} {{comment.pub_date}}
+</p>
+<p class="mb-0">
+{{comment.content}}
+</p>
+</div><br>
+{% empty %}
+Комментариев нет
+{% endfor %}
+<p>Оставить комментарий :<p>
+<form  method="post" class="form" >
+    {% csrf_token %}
+    <div class="fieldWrapper">
+    
+    
+    {{ form.content }}<br><br>
+</div>
+
+    
+        <button type="submit" class="btn btn-outline-success">Добавить комментарий</button>
+   
+</form>
+
+</div>
+
+
+{% endblock content %}

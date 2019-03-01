@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+<script>
+
+	
+
+</script>	
+<div class="container-fluid" style = 'border-bottom:1px solid #696969;padding:0 2px 0 4px;'>
+	<p>Создание заявки</p>
+ </div>
+ <br>
+
+<form  method="post" >
+    {% csrf_token %}
+	<div class="row">
+      <div class="col-6">
+		  
+			{{ form.company|as_crispy_field }}
+			
+				<button class="create-company btn btn-link" type="button" name="button">Добавить компанию</button>
+		
+		</div>
+      <div class="col-6">
+		<div class="row">
+			<div class="col-4">
+				{{ form.type_of_service|as_crispy_field }}
+			</div>
+			
+			<div class="col-4">
+				{{ form.product|as_crispy_field }}
+			</div>
+			<div class="col-4">
+				{{ form.namber|as_crispy_field }}
+			</div>
+		</div>
+	  </div>
+    </div>
+	<div class="row">
+		<div class="col-4">
+			{{ form.bill|as_crispy_field }}
+		</div>
+		<div class="col-4">
+			
+			{{ form.service|as_crispy_field }}
+			
+		</div>
+	</div>
+	
+	
+	
+
+  <button  type="submit"  class="btn btn-success">Создать заявку</button>
+ 
+    
+</form> 
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

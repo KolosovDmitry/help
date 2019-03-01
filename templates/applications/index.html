@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Заявки{% endblock title %}
+{% block content%}
+
+<div class="container-fluid" style = 'border-bottom:1px solid #696969;padding:0 2px 0 4px;'>
+	<p>Заявки<a class="btn btn-primary rounded-0" style = 'float:right;' role="button" href = "{% url 'help.applications:ApplicationsCreate' %}">Создать заявку</a></p>
+ </div>
+ <br>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12 col-md-8">	
+			{% include 'applications/all_applications.html' %}
+		</div>
+		<div class = 'col-6 col-md-4'>
+			{% include 'applications/filter_applications.html' %}
+		</div>
+	</div>
+</div>
+{% endblock content %}

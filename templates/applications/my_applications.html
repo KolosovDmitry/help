@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Главная{% endblock title %}
+
+	{% block content%}
+		
+			
+		
+		<div class="container-fluid">
+		
+	<div class="row">
+    <div class="col-12 col-md-8">	
+		
+
+
+   {% for applications in applications_list %}
+   <div class="card table-card">
+    <!-- window.location.href='{{ applications.get_absolute_url }}';-->
+    <tr  ondblclick="window.location.href='{{ applications.get_absolute_url }}'" >
+   
+   
+	<td>{{ applications.id }}<br>
+    <td>{{ applications.company.inn }}<br>{{ applications.company.name }} </td>
+    
+    <td>
+{{ applications.creation_date }}</td> <td>{{ applications.creator.get_full_name }} </td><td>{{ applications.responsible.get_full_name}}</td>
+
+<td>{% if applications.date_of_service %}
+{{ applications.date_of_service}}
+{% else %} Услуга не оказана
+{%endif%}
+</td>
+
+<td id='{{applications.status}}'>{{ applications.get_status_display}}</td> <td>
+
+
+
+{% empty %}
+<tr><td>нет работ</td></tr>
+</div>
+{% endfor %}
+</div>
+<div class = 'col-6 col-md-4'>
+	2222222222
+</div></div></div>
+
+	{% endblock content %}
+	
+	

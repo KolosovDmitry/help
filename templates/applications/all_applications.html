@@ -1,0 +1,90 @@
+
+   {% for applications in applications_list %}
+   {% if applications.status == 'NW' %}
+	<style>#{{applications.status}} {color:#FF0000;}</style>
+{% elif  applications.status == 'CS'%}
+	<style>#{{applications.status}} {color:#0015FF;}</style>
+{% elif  applications.status == 'RL'%}
+	<style>#{{applications.status}} {color:red;}</style>
+{% elif  applications.status == 'IW'%}
+	<style>#{{applications.status}} {color:#FFF700;}</style>
+{% endif %}
+<div id = 'demo1' class="card mb-3 rounded-0" style=" cursor: pointer;background:#FFFFFF;" onmouseover="this.style.background='#FFFFFF';" onmouseout="this.style.background='#FFFFFF';" onclick="window.location.href='{{ applications.get_absolute_url }}'" >
+   
+   <div class="card-body">
+   
+    <!-- window.location.href='{{ applications.get_absolute_url }}';
+    <tr  ondblclick="window.location.href='{{ applications.get_absolute_url }}'" > 
+	onmouseover="this.style.background='#F5F5DC';" onmouseout="this.style.background='#FDF5E6';"
+	background:#FDF5E6;
+	-->
+   
+		<div class = 'row'>
+			<div class = 'col-8'>
+				{{ applications.company.inn }} / {{ applications.company.name }} <br>
+				{{ applications.get_product_display }}<br><br>
+				Номер заявки {{ applications.id }}<div id = '{{applications.status}}'>{{ applications.get_status_display}}</div>
+			</div>
+			<div class = 'col-4' >
+			<div class = 'row'>
+			<div class = 'col-10'>
+				
+				
+					{{ applications.creation_date|date:"d.m.Y H:i" }} <br>
+					{% if applications.date_of_service %}
+					{{ applications.date_of_service|date:"d.m.Y"}}
+					{% else %} Услуга не оказана
+					{%endif%} <br>
+					{{ applications.creator.get_full_name }} <br>
+					{% if applications.responsible %}
+					{{ applications.responsible.get_full_name}}
+					{% else %} Не назначен
+					{%endif%}
+					
+				
+				</div>
+				<div class = 'col-2'>
+
+				<a href="#"><i class="material-icons">more_vert</i></a>
+
+			</div>
+			</div>
+
+		</div>
+	</div> 
+</div>
+</div>
+<style>
+#demo1 {
+   transition: all 200ms linear 0ms;
+    
+}
+#demo1:hover {
+   transform: rotate(0deg) scale(1.03,1.03) ;
+   box-shadow: 5px 5px 0px #A5A5A5;
+   z-index: 999;
+   transition: transform 100ms linear 0ms;
+   
+  
+box-shadow 300ms linear 0ms, z-index 300ms linear 0ms;
+}
+</style>
+<script type="text/javascript">
+ $(document).ready(function(){
+ $(".box").hover(function() {
+ $(this).stop().animate({ backgroundColor: "#FF4500"}, 400);
+ },function() {
+ $(this).stop().animate({ backgroundColor: "#ffffff" }, 400);
+ });
+ });
+ </script>
+{% empty %}
+нет работ
+
+{% endfor %}
+
+
+
+	
+	
+	
